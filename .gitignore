@@ -7,6 +7,6 @@
 /FreeRTOS_TAD_logs/
 
 # Excluye carpeta temporal Debug/Release
-/MKL02Z32xxx4_Project/Debug/
-/MKL02Z32xxx4_Project/Release/
-/MKL02Z32xxx4_Project/doc/
+/FRDMKL02Z_mma8451_propio/Debug/
+/FRDMKL02Z_mma8451_propio/Release/
+/FRDMKL02Z_mma8451_propio/doc/
