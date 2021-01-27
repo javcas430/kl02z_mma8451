@@ -1,8 +1,8 @@
 /*! @file : sdk_hal_gpio.c
- * @author  Ernesto Andres Rincon Cruz
+ * @author  Javier Casallas
  * @version 1.0.0
- * @date    10/01/2021
- * @brief   Driver for GPIO
+ * @date    27/01/2021
+ * @brief   Driver para 
  * @details
  *
 */

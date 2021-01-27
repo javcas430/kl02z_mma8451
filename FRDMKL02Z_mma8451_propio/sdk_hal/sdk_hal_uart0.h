@@ -1,12 +1,11 @@
 /*! @file : sdk_hal_uart0.h
- * @author  Ernesto Andres Rincon Cruz
+ * @author  Javier Casallas
  * @version 1.0.0
- * @date    8/01/2021
- * @brief   Driver para UART0
+ * @date    27/01/2021
+ * @brief   Driver para 
  * @details
  *
  */
-
 #ifndef SDK_HAL_UART0_H_
 #define SDK_HAL_UART0_H_
 /*******************************************************************************

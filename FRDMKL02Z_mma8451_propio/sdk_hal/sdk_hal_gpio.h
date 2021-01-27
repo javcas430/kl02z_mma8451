@@ -1,8 +1,8 @@
 /*! @file : sdk_hal_gpio.h
- * @author  Ernesto Andres Rincon Cruz
+ * @author  Javier Casallas
  * @version 1.0.0
- * @date    10/01/2021
- * @brief   Driver for GPIO
+ * @date    27/01/2021
+ * @brief   Driver para 
  * @details
  *
  */
@@ -21,6 +21,12 @@
  * @addtogroup GPIO
  * @{
  */
+
+
+
+
+
+status_t gpioPutHigh(uint16_t pin_to_change);
 /*******************************************************************************
  * Public Definitions
  ******************************************************************************/
@@ -133,7 +139,7 @@ status_t gpioPutValue(uint16_t pin_to_change, uint8_t new_value);
  * 		kStatus_Fail
  * @endcode
  */
-status_t gpioPutToggle(uint16_t pin_to_change);
+
 
 /** @} */ // end of GPIO group
 /** @} */ // end of HAL group
