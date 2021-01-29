@@ -28,6 +28,18 @@
 
 #define MMA8451_WHO_AM_I_MEMORY_ADDRESS		0x0D
 
+#define MMA8451_XMSB_MEMORY_ADDRESS		0x01
+
+#define MMA8451_XLSB_MEMORY_ADDRESS		0x02
+
+#define MMA8451_YMSB_MEMORY_ADDRESS		0x03
+
+#define MMA8451_YLSB_MEMORY_ADDRESS		0x04
+
+#define MMA8451_ZMSB_MEMORY_ADDRESS		0x05
+
+#define MMA8451_ZLSB_MEMORY_ADDRESS		0x06
+
 /*******************************************************************************
  * Private Prototypes
  ******************************************************************************/
@@ -55,6 +67,12 @@ int main(void) {
 	status_t status;
 	uint8_t nuevo_byte_uart;
 	uint8_t	nuevo_dato_i2c;
+	uint8_t	nuevo_dato_i2c_1;
+	uint8_t	nuevo_dato_i2c_2;
+	uint16_t coordenada_x;
+	uint16_t coordenada_y;
+	uint16_t coordenada_z;
+
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -72,8 +90,12 @@ int main(void) {
     PRINTF("r-R led ROJO\r\n");
     PRINTF("v-V led VERDE\r\n");
     PRINTF("a-A led AZUL\r\n");
+    PRINTF("x-X led AZUL\r\n");
+    PRINTF("y-Y led AZUL\r\n");
+    PRINTF("z-Z led AZUL\r\n");
     PRINTF("M buscar acelerometro\r\n");
 
+    i2c0MasterWriteByte(0x01, 0x2A);
 
     while(1) {
     	if(uart0CuantosDatosHayEnBuffer()>0){
@@ -109,7 +131,65 @@ int main(void) {
 						printf("MMA8451 error\r\n");
 
 					break;
-				}
+
+				case 'X':
+				case 'x':
+					i2c0MasterReadByte(&nuevo_dato_i2c_1, MMA851_I2C_DEVICE_ADDRESS, MMA8451_XMSB_MEMORY_ADDRESS);
+					i2c0MasterReadByte(&nuevo_dato_i2c_2, MMA851_I2C_DEVICE_ADDRESS, MMA8451_XLSB_MEMORY_ADDRESS);
+
+					coordenada_x = nuevo_dato_i2c_1;
+
+					coordenada_x <<= 6;
+
+					coordenada_x = coordenada_x | nuevo_dato_i2c_2;
+
+					printf("MMA8451 coordenada X: %d\r\n", coordenada_x);
+
+					gpioPutValue(KPTB6,0);
+					gpioPutValue(KPTB7,1);
+					gpioPutValue(KPTB10,1);
+
+
+					break;
+				case 'Y':
+				case 'y':
+					i2c0MasterReadByte(&nuevo_dato_i2c_1, MMA851_I2C_DEVICE_ADDRESS, MMA8451_YMSB_MEMORY_ADDRESS);
+					i2c0MasterReadByte(&nuevo_dato_i2c_2, MMA851_I2C_DEVICE_ADDRESS, MMA8451_YLSB_MEMORY_ADDRESS);
+
+					coordenada_y = nuevo_dato_i2c_1;
+
+					coordenada_y <<= 6;
+
+					coordenada_y = coordenada_y | nuevo_dato_i2c_2;
+
+					printf("MMA8451 coordenada Y: %d\r\n", coordenada_y);
+
+					gpioPutValue(KPTB6,1);
+					gpioPutValue(KPTB7,0);
+					gpioPutValue(KPTB10,1);
+
+					break;
+
+				case 'Z':
+				case 'z':
+					i2c0MasterReadByte(&nuevo_dato_i2c_1, MMA851_I2C_DEVICE_ADDRESS, MMA8451_ZMSB_MEMORY_ADDRESS);
+					i2c0MasterReadByte(&nuevo_dato_i2c_2, MMA851_I2C_DEVICE_ADDRESS, MMA8451_ZLSB_MEMORY_ADDRESS);
+
+					coordenada_z = nuevo_dato_i2c_1;
+
+					coordenada_z <<= 6;
+
+					coordenada_z = coordenada_z | nuevo_dato_i2c_2;
+
+					printf("MMA8451 coordenada Z: %d\r\n", coordenada_z);
+
+					gpioPutValue(KPTB6,1);
+					gpioPutValue(KPTB7,1);
+					gpioPutValue(KPTB10,0);
+
+					break;
+    			}
+
     		}else{
     			printf("error\r\n");
     		}
